@@ -7,11 +7,11 @@ function detectNamesInInputs() {
         .then(data => {
             var commonNames = data.split("\n");
             
-            var foundNames = commonNames.filter(function(name) {
-                return new RegExp('\\b' + name + '\\b', 'i').test(inputText);
+            var foundName = commonNames.find(function(name) {
+                return inputText.trim().toLowerCase() === name.trim().toLowerCase();
             });
             
-            if (foundNames.length > 0) {
+            if (foundName) {
                 alert('Please be cautious about sharing personal information, such as names, in public spaces.');
             }
         })
@@ -51,4 +51,3 @@ detectNamesInInputs();
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-// tesr
