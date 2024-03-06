@@ -1,0 +1,53 @@
+function detectNamesInInputs() {
+    function checkForNames(inputText) {
+        var commonNamesURL = "https://raw.githubusercontent.com/Pugls29/WA-Name-Protect/main/Name%20database.txt";
+        
+        fetch(commonNamesURL)
+        .then(response => response.text())
+        .then(data => {
+            var commonNames = data.split("\n");
+            
+            var foundNames = commonNames.filter(function(name) {
+                return new RegExp('\\b' + name + '\\b', 'i').test(inputText);
+            });
+            
+            if (foundNames.length > 0) {
+                alert('Please be cautious about sharing personal information, such as names, in public spaces.');
+            }
+        })
+        .catch(error => console.error('Error fetching common names:', error));
+    }
+    
+    var textInputs = document.querySelectorAll('input[type="text"], input[type="search"], textarea');
+    
+    textInputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            var inputText = input.value;
+            checkForNames(inputText);
+        });
+    });
+}
+
+detectNamesInInputs();
+
+// MIT License
+// 
+// Copyright (c) 2024 Pugls
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
